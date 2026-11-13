@@ -21,7 +21,7 @@
             "styles": ["src/styles.css"]
           },
           "configurations": {
-            "production": { "outputHashing": "all" },
+            "production": { "outputHashing": "all", "optimization": { "fonts": { "inline": false } } },
             "development": { "optimization": false, "extractLicenses": false, "sourceMap": true }
           },
           "defaultConfiguration": "production"
