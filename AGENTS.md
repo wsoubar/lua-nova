@@ -27,6 +27,7 @@ O servidor local usa a porta 4200. Não há scripts de lint ou testes automatiza
 
 ## Regras e manutenção
 
+- Os dados de exemplo abrangem uma Turma A do 1º ao 9º ano, com cinco alunos fictícios por turma. No carregamento de dados antigos, acrescente apenas turmas ausentes do 1º ao 5º ano, preservando os dados existentes e evitando duplicações.
 - Preserve signals e valores derivados com `computed`; mantenha atualizações de estado imutáveis.
 - Cada matéria tem de 1 a 4 avaliações entre 0 e 10, com pesos iguais; quantidade global configurável, padrão: 2. Notas de avaliações excedentes são preservadas e desconsideradas nos cálculos até serem reativadas. Média mínima para aprovação configurável globalmente de 0 a 10, com até uma casa decimal; padrão: 6. Nota ausente é `null`, diferente de zero.
 - Preserve a chave `lua-nova-school-data-v1` e os dados existentes. Mudanças de formato exigem estratégia de migração.

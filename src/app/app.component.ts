@@ -15,15 +15,22 @@ function validPassingAverage(value:unknown):value is number {
 const SUBJECTS=['Matemática','Português','Ciências','História','Geografia','Inglês'];
 function sample():Data {
  const names=[
+ ['Alice Fernandes','Arthur Souza','Beatriz Costa','Davi Pereira','Laura Santos'],
+ ['Bernardo Lima','Cecília Alves','Gabriel Rocha','Helena Martins','Miguel Ribeiro'],
+ ['Antonella Dias','Caio Carvalho','Elisa Gomes','Lucas Barbosa','Sofia Teixeira'],
+ ['Benício Melo','Clara Rodrigues','Enzo Oliveira','Lívia Cardoso','Rafael Nunes'],
+ ['Bianca Freitas','Diego Castro','Heloísa Moreira','Leonardo Pinto','Luísa Azevedo'],
  ['Ana Clara Ribeiro','Bruno Martins','Camila Oliveira','Daniel Costa','Eduarda Lima'],
  ['Felipe Santos','Giovana Almeida','Heitor Souza','Isabela Rocha','João Pedro Melo'],
  ['Karen Ferreira','Lucas Carvalho','Mariana Gomes','Nathan Barros','Olívia Duarte'],
  ['Pedro Henrique Alves','Rafaela Nunes','Samuel Correia','Thiago Mendes','Valentina Freitas']
  ];
- return {assessmentCount:DEFAULT_ASSESSMENT_COUNT,passingAverage:DEFAULT_PASSING_AVERAGE,subjects:[...SUBJECTS],classes:names.map((ns,i)=>({id:String(i+6),year:i+6,students:ns.map((name,j)=>({id:`${i+6}-${j}`,name,grades:Object.fromEntries(SUBJECTS.map(s=>[s,[null,null]])) as Student['grades']}))}))};
+ return {assessmentCount:DEFAULT_ASSESSMENT_COUNT,passingAverage:DEFAULT_PASSING_AVERAGE,subjects:[...SUBJECTS],classes:names.map((ns,i)=>({id:String(i+1),year:i+1,students:ns.map((name,j)=>({id:`${i+1}-${j}`,name,grades:Object.fromEntries(SUBJECTS.map(s=>[s,[null,null]])) as Student['grades']}))}))};
 }
 function load():Data {
- try { const raw=localStorage.getItem(KEY); if(raw){const d=JSON.parse(raw) as Data;if(d.classes&&d.subjects)return {...d,assessmentCount:validAssessmentCount(d.assessmentCount)?d.assessmentCount:DEFAULT_ASSESSMENT_COUNT,passingAverage:validPassingAverage(d.passingAverage)?d.passingAverage:DEFAULT_PASSING_AVERAGE};} } catch {}
+ try { const raw=localStorage.getItem(KEY); if(raw){const d=JSON.parse(raw) as Data;if(d.classes&&d.subjects){
+ const additions=sample().classes.filter(c=>c.year<=5&&!d.classes.some(existing=>existing.id===c.id||existing.year===c.year));
+ return {...d,classes:[...d.classes,...additions].sort((a,b)=>a.year-b.year),assessmentCount:validAssessmentCount(d.assessmentCount)?d.assessmentCount:DEFAULT_ASSESSMENT_COUNT,passingAverage:validPassingAverage(d.passingAverage)?d.passingAverage:DEFAULT_PASSING_AVERAGE};}} } catch {}
  return sample();
 }
 @Component({selector:'app-root',standalone:true,imports:[FormsModule],templateUrl:'./app.component.html'})
