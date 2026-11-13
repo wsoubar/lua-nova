@@ -28,7 +28,7 @@ O servidor local usa a porta 4200. Não há scripts de lint ou testes automatiza
 ## Regras e manutenção
 
 - Preserve signals e valores derivados com `computed`; mantenha atualizações de estado imutáveis.
-- Cada matéria tem duas notas entre 0 e 10, com pesos iguais. Média mínima para aprovação: 6. Nota ausente é `null`, diferente de zero.
+- Cada matéria tem duas notas entre 0 e 10, com pesos iguais. Média mínima para aprovação configurável globalmente de 0 a 10, com até uma casa decimal; padrão: 6. Nota ausente é `null`, diferente de zero.
 - Preserve a chave `lua-nova-school-data-v1` e os dados existentes. Mudanças de formato exigem estratégia de migração.
 - A persistência é local a cada navegador e origem. Não prometa sincronização entre dispositivos.
 - Mantenha rótulos acessíveis nos campos e verifique a responsividade quando alterar a interface.
